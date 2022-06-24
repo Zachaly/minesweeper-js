@@ -28,6 +28,7 @@ body{
 
 #info{
     height: 100px;
+    display: flex;
 }
 
 #board{
@@ -43,4 +44,31 @@ body{
     width: 40px;
     height: 40px;
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: aliceblue;
+}
+
+.bomb{
+    background-color: red;
+}
+
+.empty{
+    background-color: green;
+}
+
+.flag{
+    background-color: gold;
+}
+
+#info #time, #info #flags{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: aliceblue;
 }

@@ -1,9 +1,12 @@
-let xSize, ySize, numberOfBombs;
+let gameXSize, gameYSize, numberOfBombs, flags;
+let fields = [];
+let timerInterval;
 
 function generate(xSize, ySize, bombs){
-    this.xSize = xSize;
-    this.ySize = ySize;
-    this.numberOfBombs = bombs;
+    gameXSize = xSize;
+    gameYSize = ySize;
+    numberOfBombs = bombs;
+    flags = bombs;
 
     let container = document.getElementsByClassName("container")[0];
     let buttons = document.getElementById("buttons");
@@ -15,19 +18,30 @@ function generate(xSize, ySize, bombs){
 
     container.appendChild(board);
 
-    for(let i = 0; i < ySize; i++){
+    for(let i = 0; i < gameYSize; i++){
         let row = document.createElement("div");
         row.classList.add("row");
 
-        for(let j = 0; j < xSize; j++){
+        for(let j = 0; j < gameXSize; j++){
             let field = document.createElement("div");
             field.id = getId(j,i);
             field.classList.add("field");
             row.appendChild(field);
+
+            fields.push(new Field(j, i));
         }
 
         board.appendChild(row);
     }
+
+    generateBombs();
+    setHandlers();
+    document.getElementById("time").innerHTML = 0;
+
+    timerInterval = setInterval(() => {
+        let timer = document.getElementById("time");
+        timer.innerHTML = parseInt(timer.innerHTML) + 1;
+    }, 1000);
 }
 
 function getId(x, y){
