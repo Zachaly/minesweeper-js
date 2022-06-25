@@ -2,6 +2,7 @@ let gameXSize, gameYSize, numberOfBombs, flags;
 let fields = [];
 let timerInterval;
 
+// generates board and creates fields
 function generate(xSize, ySize, bombs){
     gameXSize = xSize;
     gameYSize = ySize;
@@ -34,8 +35,21 @@ function generate(xSize, ySize, bombs){
         board.appendChild(row);
     }
 
-    generateBombs();
+    for(let field of fields){
+        document.getElementById(field.getId()).onclick = () => {
+            firstClick(field);
+        }
+    }
+
+    updateFlagCounter();
+}
+
+// first click spawns the bombs and starts timer
+function firstClick(field){
+    generateBombs(field.getXPosition(), field.getYPosition());
     setHandlers();
+    leftClick(field);
+
     document.getElementById("time").innerHTML = 0;
 
     timerInterval = setInterval(() => {
